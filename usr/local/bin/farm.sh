@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 GETH=/usr/bin/geth
 ETHMINER=/usr/local/bin/ethminer
@@ -9,6 +9,7 @@ export GPU_MAX_HEAP_SIZE=100
 export GPU_USE_SYNC_OBJECTS=1
 export GPU_MAX_ALLOC_PERCENT=100
 export GPU_SINGLE_ALLOC_PERCENT=100
+exec 1> >(/usr/bin/logger -p mail.info -s -t $(basename $0)) 2>&1
 
 start() {
 	#${GETH} --rpc \
@@ -23,7 +24,6 @@ start() {
 	##############################
 	# Ethpool
 	##############################
-	exec 1> >(/usr/bin/logger -p mail.info -s -t $(basename $0)) 2>&1
 	/bin/bash /usr/local/bin/nvidia-overclock.sh start
 	sudo -s -u st_lim \
 		$ETHMINER --farm-recheck 200 \
@@ -49,16 +49,17 @@ stop() {
 	while [ -n "${KILLED}" ]; do
 		kill -HUP $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }')
 		killall -9 ethminer
-		COUNT=$((COUNT + 1))
+		COUNT=$(($COUNT + 1))
 		if [ "${COUNT}" == "3" ]; then
 			systemctl reboot --force --nowall
 		fi
+		sleep 2
+		KILLED=$( ps -ef | grep ethminer)
 	done
 }
 
 reload() {
 	stop
-	sleep 5
 	start
 }
 

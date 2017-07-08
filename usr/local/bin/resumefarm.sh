@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 ETHMINER=/usr/local/bin/ethminer
 LOGFILE=/var/log/mail.log
@@ -12,7 +12,10 @@ fi
 touch ${LOCK}
 if [ -z "$( tail -n3 ${LOGFILE} | grep '${CONNECTPATTERN}')" ]; then
 	#cat /dev/null > /var/log/mail.log
-	sudo systemctl restart farm
+	sleep 5
+	if [ -z "$( tail -n3 ${LOGFILE} | grep '${CONNECTPATTERN}')" ]; then
+		sudo systemctl restart farm
+	fi
 fi
 rm ${LOCK}
 
