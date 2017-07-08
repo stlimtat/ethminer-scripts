@@ -25,6 +25,9 @@ start() {
 	# Ethpool
 	##############################
 	/bin/bash /usr/local/bin/nvidia-overclock.sh start
+	sleep 5
+	lshw -c video | grep "bus info:"
+	$ETHMINER -U --list-devices
 	sudo -s -u st_lim \
 		$ETHMINER --farm-recheck 200 \
 		-U \
@@ -50,7 +53,7 @@ stop() {
 		kill -HUP $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }')
 		killall -9 ethminer
 		COUNT=$(($COUNT + 1))
-		if [ "${COUNT}" == "3" ]; then
+		if [ ${COUNT} -gt 3 ]; then
 			systemctl reboot --force --nowall
 		fi
 		sleep 2

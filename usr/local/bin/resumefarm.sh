@@ -14,7 +14,7 @@ if [ -z "$( tail -n3 ${LOGFILE} | grep '${CONNECTPATTERN}')" ]; then
 	#cat /dev/null > /var/log/mail.log
 	sleep 5
 	if [ -z "$( tail -n3 ${LOGFILE} | grep '${CONNECTPATTERN}')" ]; then
-		sudo systemctl restart farm
+		sudo systemctl reload farm
 	fi
 fi
 rm ${LOCK}
