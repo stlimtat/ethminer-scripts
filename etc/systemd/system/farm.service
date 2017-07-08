@@ -1,0 +1,13 @@
+[Unit]
+Description=Ethereum Farming
+After=network-online.target auditd.service nvidia-overclock.service
+Requires=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -x /usr/local/bin/farm.sh start
+ExecReload=/bin/bash -x /usr/local/bin/farm.sh reload
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
