@@ -6,6 +6,7 @@ Requires=network-online.target
 [Service]
 Type=simple
 ExecStart=/bin/bash -x /usr/local/bin/farm.sh start
+ExecStop=/bin/bash -x /usr/local/bin/farm.sh stop
 ExecReload=/bin/bash -x /usr/local/bin/farm.sh reload
 Restart=always
 
