@@ -24,8 +24,8 @@ start() {
 	##############################
 	# Ethpool
 	##############################
-	/bin/bash /usr/local/bin/nvidia-overclock.sh start
-	sleep 5
+	#/bin/bash /usr/local/bin/nvidia-overclock.sh start
+	#sleep 5
 	lshw -c video | grep "bus info:"
 	$ETHMINER -U --list-devices
 	sudo -s -u st_lim \
@@ -47,6 +47,9 @@ start() {
 
 stop() {
 	killall -9 ethminer
+	if [ $( dmesg | grep -c 'GPU has fallen off') -ne 0 ]; then
+		systemctl reboot --force --no-wall
+	fi
 	KILLED=$( ps -ef | grep ethminer | grep defunct )
 	COUNT=0
 	while [ -n "${KILLED}" ]; do
@@ -54,7 +57,7 @@ stop() {
 		killall -9 ethminer
 		COUNT=$(($COUNT + 1))
 		if [ ${COUNT} -gt 3 ]; then
-			systemctl reboot --force --nowall
+			systemctl reboot --force --no-wall
 		fi
 		sleep 2
 		KILLED=$( ps -ef | grep ethminer)
