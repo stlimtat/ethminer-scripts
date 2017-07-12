@@ -3,7 +3,7 @@
 ETHMINER=/usr/local/bin/ethminer
 LOGFILE=/var/log/mail.log
 CONNECTPATTERN=PoWhash
-CUDA_ERROR=CUDA error
+CUDA_ERROR="CUDA error"
 CONNECT_ERROR=hostasia1
 LOCK=/tmp/$(basename $0).lock
 
@@ -14,7 +14,7 @@ fi
 touch ${LOCK}
 if [ $( dmesg | grep -c 'GPU has fallen off') -ne 0 ]; then
 	sudo systemctl reboot --force --no-wall
-elif [ $( tail -n100 ${LOGFILE} | grep -c ${CUDA_ERROR}) -ne 0 ]; then
+elif [ $( tail -n100 ${LOGFILE} | grep -c "${CUDA_ERROR}") -ne 0 ]; then
 	sudo systemctl restart farm
 elif [ $( tail -n3 ${LOGFILE} | grep -c ${CONNECT_ERROR}) -ne 0 ]; then
 	sudo systemctl restart farm
