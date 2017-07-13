@@ -56,11 +56,11 @@ stop() {
 		kill -HUP $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }')
 		killall -9 ethminer
 		COUNT=$(($COUNT + 1))
-		if [ ${COUNT} -gt 3 ]; then
+		if [ ${COUNT} -gt 5 ]; then
 			systemctl reboot --force --no-wall
 		fi
-		sleep 2
-		KILLED=$( ps -ef | grep ethminer)
+		sleep 10 
+		KILLED=$( ps -ef | grep ethminer | grep -v grep)
 	done
 }
 
