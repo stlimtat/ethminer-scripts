@@ -1,6 +1,6 @@
 [Unit]
-Description=Ethereum Farming
-After=network-online.target auditd.service nvidia-overclock.service
+Description=Ethereum Farming (OpenCL)
+After=network-online.target auditd.service 
 Requires=network-online.target
 
 [Service]
