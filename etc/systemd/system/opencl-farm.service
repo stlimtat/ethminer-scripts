@@ -5,9 +5,9 @@ Requires=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -x /usr/local/bin/cuda-farm.sh start
-ExecStop=/bin/bash -x /usr/local/bin/cuda-farm.sh stop
-ExecReload=/bin/bash -x /usr/local/bin/cuda-farm.sh reload
+ExecStart=/bin/bash -x /usr/local/bin/opencl-farm.sh start
+ExecStop=/bin/bash -x /usr/local/bin/opencl-farm.sh stop
+ExecReload=/bin/bash -x /usr/local/bin/opencl-farm.sh reload
 Restart=always
 
 [Install]
