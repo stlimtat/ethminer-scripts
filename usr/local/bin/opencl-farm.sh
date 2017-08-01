@@ -35,7 +35,7 @@ start() {
 		-FS asia1.ethermine.org:14444 \
 		--stratum-email st_lim\@stlim.net \
 		--userpass a04954b34a5d54715b03d732caa9bc05ef4d6df5.stlimeth \
-		-U --cuda-devices 0 1 2 --cuda-parallel-hash 4 \
+		-G --opencl-platform 1
 
 #		-U --cuda-parallel-hash 4 \
 #		-X --opencl-platform 1 \
