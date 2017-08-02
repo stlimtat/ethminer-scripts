@@ -44,7 +44,7 @@ reload() {
 
 bench() {
 	sudo -s -u st_lim \
-		$ETHMINER -U -M
+		$ETHMINER -G -M
 }
 
 
