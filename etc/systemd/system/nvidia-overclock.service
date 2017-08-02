@@ -1,5 +1,6 @@
 [Unit]
 Description=Overclock Nvidia Cards
+After=cuda-farm.service
 
 [Service]
 Type=oneshot

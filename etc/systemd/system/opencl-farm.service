@@ -5,9 +5,7 @@ Requires=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -x /usr/local/bin/opencl-farm.sh start
-ExecStop=/bin/bash -x /usr/local/bin/opencl-farm.sh stop
-ExecReload=/bin/bash -x /usr/local/bin/opencl-farm.sh reload
+ExecStart=/bin/bash -x /usr/local/bin/farm.sh 1
 Restart=always
 
 [Install]

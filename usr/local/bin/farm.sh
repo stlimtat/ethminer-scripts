@@ -31,7 +31,7 @@ start() {
 
 start_cuda() {
 	LIST_DEVICES=$($ETHMINER --list-devices -U | grep --text "^\[[0-9]\]" | sed -e 's/^\[\([0-9]\)\].*/\1/' | xargs)
-	echo sudo -s -u st_lim \
+	sudo -s -u st_lim \
 		$ETHMINER --farm-recheck 2000 \
 		--verbosity $VERBOSITY \
 		-S asia1.ethermine.org:4444 \
@@ -43,10 +43,9 @@ start_cuda() {
 
 start_opencl() {
 	LIST_DEVICES=$($ETHMINER --list-devices -G | grep --text "^\[[0-9]\]" | grep --text -v "GeForce" | sed -e 's/^\[\([0-9]\)\].*/\1/' | xargs )
-	
-	echo sudo -s -u st_lim \
+	sudo -s -u st_lim \
 		$ETHMINER --farm-recheck 2000 \
-		--verbosity 1 \
+		--verbosity $VERBOSITY \
 		-S asia1.ethermine.org:4444 \
 		-FS asia1.ethermine.org:14444 \
 		--stratum-email st_lim\@stlim.net \

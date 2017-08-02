@@ -1,13 +1,11 @@
 [Unit]
-Description=Ethereum Farming
-After=network-online.target auditd.service nvidia-overclock.service
+Description=Ethereum Farming (Cuda)
+After=network-online.target auditd.service
 Requires=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -x /usr/local/bin/cuda-farm.sh start
-ExecStop=/bin/bash -x /usr/local/bin/cuda-farm.sh stop
-ExecReload=/bin/bash -x /usr/local/bin/cuda-farm.sh reload
+ExecStart=/bin/bash -x /usr/local/bin/farm.sh 0
 Restart=always
 
 [Install]
