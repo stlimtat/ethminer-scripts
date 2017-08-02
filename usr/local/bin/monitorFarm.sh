@@ -27,6 +27,7 @@ ETHMINER_ERRORS[2]="submit solution. Not connected"
 
 exec 1> >(/usr/bin/logger -p local2.info -s -t ${IDENTITY}) 2>&1
 
+echo "Monitoring (${IDENTITY}) - Checking (${ETHMINER_LOG})"
 if [ $( dmesg | grep -c 'GPU has fallen off') -ne 0 ]; then
 	systemctl reboot --force --no-wall
 else
