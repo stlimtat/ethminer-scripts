@@ -5,7 +5,7 @@ I installed all the following on a latest copy of Ubuntu 17.04.  Friends asked m
 
 My mining rig consists of the following:
 1. AsRock H110 BTC+ Pro motherboard - supports 13 PCI-E cards, and super stable
-1. Intel G5400 processor
+1. Intel Pentium CPU G4400 processor @ 3.30 GHz
 1. 4GB Crucial RAM
 1. Some really old 120GB SSD
 1. Gigabyte G1 Gaming GTX 1070 x 03
