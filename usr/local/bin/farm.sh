@@ -31,7 +31,7 @@ start() {
 
 start_cuda() {
 	LIST_DEVICES=$($ETHMINER --list-devices -U | grep --text "^\[[0-9]\]" | sed -e 's/^\[\([0-9]\)\].*/\1/' | xargs)
-	if [ "$LIST_DEVICES" -eq "" ]; then
+	if [ "$LIST_DEVICES" == "" ]; then
 		echo "No devices found"
 		$ETHMINER --list-devices -U
 		exit 1
@@ -48,7 +48,7 @@ start_cuda() {
 
 start_opencl() {
 	LIST_DEVICES=$($ETHMINER --list-devices -G | grep --text "^\[[0-9]\]" | grep --text -v "GeForce" | sed -e 's/^\[\([0-9]\)\].*/\1/' | xargs )
-	if [ "$LIST_DEVICES" -eq "" ]; then
+	if [ "$LIST_DEVICES" == "" ]; then
 		echo "No devices found"
 		$ETHMINER --list-devices -G
 		exit 1

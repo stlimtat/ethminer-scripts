@@ -35,12 +35,7 @@ start() {
 		#	${CMD} -a [gpu:${i}]/GPUMemoryTransferRateOffset[${x}]=${MEM}
 		#done
 	done
-#	sleep 10
-#	killall -9 X
-#	killall -9 Xorg
-#	killall -9 X.wrap
-	touch $LOCK
-#	sleep 5
+#	touch $LOCK
 	return 0
 }
 
