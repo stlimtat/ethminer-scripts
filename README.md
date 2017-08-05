@@ -71,6 +71,10 @@ Instructions to follow:
         cmake .. -DETHASHCUDA=ON
         cmake --build .
         sudo make install
+        sudo mv /usr/share/dbus-1/system-services/org.freedesktop.Accounts.service /usr/share/dbus-1/system-services/org.freedesktop.Accounts.service.disabled
+        sudo systemctl disable snapd
+        sudo systemctl disable lvm2-lvmetad
+        sudo systemctl disable atd
 1. Copy all the files here into the relevant directory
 1. Add the following to crontab -e on root - TODO: Move this to a file in /etc/cron.d and test properly
 
