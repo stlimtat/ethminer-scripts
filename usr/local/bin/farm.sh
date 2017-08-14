@@ -53,8 +53,22 @@ start_opencl() {
 		$ETHMINER --list-devices -G
 		exit 1
 	fi
+	# For Radeon
+	for i in {0..3}; do
+		if [ -e /sys/class/drm/card${i}-DP-1 ]; then
+			echo 10 > /sys/class/drm/card${i}/device/pp_mclk_od
+			echo 5 > /sys/class/drm/card${i}/device/pp_sclk_od
+			cat /sys/class/drm/card${i}/device/pp_dpm_mclk
+			cat /sys/class/drm/card${i}/device/pp_dpm_pcie
+			cat /sys/class/drm/card${i}/device/pp_dpm_sclk
+			cat /sys/class/drm/card${i}/device/pp_mclk_od
+			cat /sys/class/drm/card${i}/device/pp_sclk_od
+			echo 10 > /sys/class/drm/card${i}/device/pp_mclk_od
+			echo 5 > /sys/class/drm/card${i}/device/pp_sclk_od
+		fi
+	done
 	sudo -s -u st_lim \
-		$ETHMINER --farm-recheck 2000 \
+		LD_LIBRARY_PATH=/opt/amdgpu-pro/lib/x86_64-linux-gnu $ETHMINER --farm-recheck 2000 \
 		--verbosity $VERBOSITY \
 		-S asia1.ethermine.org:4444 \
 		-FS asia1.ethermine.org:14444 \

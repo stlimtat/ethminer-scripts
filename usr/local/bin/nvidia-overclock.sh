@@ -1,5 +1,5 @@
 #!/bin/bash
-PWR=100
+PWR=90
 CLOCK=275
 MEM=1775
 CMD='/usr/bin/nvidia-settings'
@@ -18,11 +18,28 @@ start() {
 
 	# ${CMD} -q all > /tmp/nvidia-settings.all 2>&1
 
+	# For CPU
 	echo "performance" >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 	echo "performance" >/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
 	echo 2800000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 	echo 2800000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
 
+	# For Radeon
+	for i in {0..3}; do
+		if [ -e /sys/class/drm/card${i}-DP-1 ]; then
+			echo 10 > /sys/class/drm/card${i}/device/pp_mclk_od
+			echo 5 > /sys/class/drm/card${i}/device/pp_sclk_od
+			cat /sys/class/drm/card${i}/device/pp_dpm_mclk
+			cat /sys/class/drm/card${i}/device/pp_dpm_pcie
+			cat /sys/class/drm/card${i}/device/pp_dpm_sclk
+			cat /sys/class/drm/card${i}/device/pp_mclk_od
+			cat /sys/class/drm/card${i}/device/pp_sclk_od
+			echo 10 > /sys/class/drm/card${i}/device/pp_mclk_od
+			echo 5 > /sys/class/drm/card${i}/device/pp_sclk_od
+		fi
+	done
+
+	# For Nvidia 
 	for i in {0..2}; do
 		nvidia-smi -i ${i} -pm 0
 		nvidia-smi -i ${i} -pl ${PWR}
